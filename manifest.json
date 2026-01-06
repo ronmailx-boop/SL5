@@ -1,0 +1,24 @@
+{
+  "name": "רשימת קניות חכמה",
+  "short_name": "רשימה",
+  "description": "אפליקציית רשימת קניות חכמה ומהירה",
+  "start_url": "/SL5/",
+  "display": "standalone",
+  "background_color": "#f4f7fa",
+  "theme_color": "#7367f0",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
