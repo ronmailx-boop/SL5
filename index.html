@@ -4,11 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>רשימת קניות חכמה</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#7367f0">
+    <link rel="apple-touch-icon" href="icon.png">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    
     <style>
         * { box-sizing: border-box; }
-        body { font-family: system-ui, sans-serif; background: #f4f7fa; padding-bottom: 160px; overflow-x: hidden; }
+        body { font-family: system-ui, sans-serif; background: #f4f7fa; padding-bottom: 120px; overflow-x: hidden; }
         
         .bottom-bar { 
             position: fixed; bottom: 0; left: 0; right: 0; 
@@ -25,9 +31,8 @@
             background: rgba(0,0,0,0.5); z-index: 3000; align-items: center; justify-content: center; backdrop-filter: blur(2px); 
         }
 
-        /* עיצוב כפתור המנעול כשהוא פעיל/כתום */
-        .lock-btn-edit { background-color: #ff9f43 !important; } /* כתום עז */
-        .lock-btn-locked { background-color: #48a9f8 !important; } /* כחול */
+        .lock-btn-edit { background-color: #ff9f43 !important; }
+        .lock-btn-locked { background-color: #48a9f8 !important; }
     </style>
 </head>
 <body>
@@ -87,11 +92,9 @@
             <button id="lockBtn" onclick="toggleLock()" class="w-12 h-12 lock-btn-edit rounded-full flex items-center justify-center shadow-lg active:scale-90 transition">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path id="lockPath" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path></svg>
             </button>
-
             <button onclick="toggleInputForm()" class="w-16 h-16 bg-[#28c76f] rounded-full flex items-center justify-center shadow-2xl border-4 border-white/20 active:scale-95 transition">
                 <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="4" d="M12 4v16m8-8H4"></path></svg>
             </button>
-
             <button onclick="openDeleteModal()" class="w-12 h-12 bg-[#ea5455] rounded-full flex items-center justify-center shadow-lg active:scale-90 transition">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
             </button>
@@ -99,6 +102,13 @@
     </div>
 
     <script>
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js').catch(err => console.log(err));
+            });
+        }
+
         let shoppingList = JSON.parse(localStorage.getItem('LIST_V6')) || [];
         let isLocked = false;
         let currentEditIndex = null;
